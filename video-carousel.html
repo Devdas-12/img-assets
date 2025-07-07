@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Orders</title>
+    <!-- fonts start -->
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400..700;1,400..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="asstes/fonts/font.css">
+    <!-- fonts end -->
+    <!-- boostrap start -->
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+     <!-- AOS CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <!-- boostrap end -->
+    <!-- css start -->
+     <link rel="stylesheet" href="asstes/css/custom.css">
+    <style>
+.video-slider .swiper.mySwiper {
+    width: 100%;
+    height: 800px;
+    margin: 100px 0;
+    /* padding: 150px 0px; */
+}
+
+.video-slider .swiper-slide {
+    background: #fff;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    width: 300px;
+    height: 800px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.video-slider .swiper-slide img,
+.video-slider .swiper-slide video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+/* Fullscreen overrides */
+.video-slider video:fullscreen,
+.video-slider video:-webkit-full-screen {
+    object-fit: contain !important;
+    background: black;
+}
+
+.video-slider .swiper-button-next,
+.video-slider .swiper-button-prev {
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
+    width: 40px;
+    height: 40px;
+}
+
+.video-slider .product-cta {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: left;
+    color: #000;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-slider .product-cta img {
+    width: 80px;
+    height: 80px;
+    margin-right: 10px;
+}
+
+.video-slider .swiper-pagination {
+    text-align: center;
+}
+
+.video-slider .swiper-pagination-bullet {
+    background: rgba(250, 250, 250, 0.6);
+    height: 3px;
+    border-radius: 2px;
+    width: 44px;
+}
+
+.video-slider .swiper-pagination-bullet-active {
+    background: rgb(255, 255, 255);
+    opacity: 1;
+}
+
+.video-slider .swiper-button-prev::after,
+.video-slider .swiper-button-next::after {
+    content: '';
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+/* Custom LEFT arrow */
+.video-slider .swiper-button-prev::after {
+    background-image: url("data:image/svg+xml,%3Csvg role='img' viewBox='0 0 36 36' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='18' cy='18' r='18' fill='rgba(64,64,64,0.5)'/%3E%3Cpath fill='white' d='M14.722 18L22.325 10.397C22.886 9.836 22.886 8.926 22.325 8.365C21.764 7.804 20.855 7.804 20.294 8.365L11.675 16.984C11.114 17.545 11.114 18.455 11.675 19.016L20.294 27.635C20.855 28.196 21.764 28.196 22.325 27.635C22.886 27.074 22.886 26.164 22.325 25.603L14.722 18Z'/%3E%3C/svg%3E");
+}
+
+/* Custom RIGHT arrow */
+.video-slider .swiper-button-next::after {
+    background-image: url("data:image/svg+xml,%3Csvg role='img' viewBox='0 0 36 36' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='18' cy='18' r='18' fill='rgba(64,64,64,0.5)'/%3E%3Cpath fill='white' d='M21.278 18L13.675 25.603C13.114 26.164 13.114 27.074 13.675 27.635C14.236 28.196 15.145 28.196 15.706 27.635L24.325 19.016C24.886 18.455 24.886 17.545 24.325 16.984L15.706 8.365C15.145 7.804 14.236 7.804 13.675 8.365C13.114 8.926 13.114 9.836 13.675 10.397L21.278 18Z'/%3E%3C/svg%3E");
+}
+
+
+    </style>
+</head>
+
+<body>
+      <section class="video-slider">
+        <div class="container-fluid">
+            <div class="video-container">
+                <div class="swiper mySwiper">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <!-- Video Top Overlay -->
+                            <div class="video-overlay-top">
+                                <div class="video-description">Diamonds are all you need to shine ✨</div>
+                                <div class="video-controls">
+                                    <button class="btn-volume muted" aria-label="Toggle Mute"></button>
+                                    <button class="btn-fullscreen" aria-label="Toggle Fullscreen"></button>
+                                </div>
+                            </div>
+                            <video src="asstes/images/videos/video_1.mp4" autoplay muted playsinline></video>
+                            <div class="video-progress-bar">
+                                <div class="video-progress-fill"></div>
+                            </div>
+                            <div class="inner-swiper-cta swiper"
+                                style="position: absolute; bottom: 20px; left: 10px; right: 10px; width: calc(100% - 20px); height: 140px;">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-1.jpg" alt="product-cta-img-1" />
+                                            Dazzling Brilliance Diamond Bangle
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-2.jpg" alt="">
+                                            Everlasting Shine Diamond Finger Ring
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-3.jpg" alt="">
+                                            Midnight Spark Necklace
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Pagination here -->
+                                <div class="swiper-pagination"></div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <!-- Video Top Overlay -->
+                            <div class="video-overlay-top">
+                                <div class="video-description">Diamonds are all you need to shine ✨</div>
+                                <div class="video-controls">
+                                    <button class="btn-volume muted" aria-label="Toggle Mute"></button>
+                                    <button class="btn-fullscreen" aria-label="Toggle Fullscreen"></button>
+                                </div>
+                            </div>
+                            <video src="asstes/images/videos/video_2.mp4" autoplay muted playsinline></video>
+                            <div class="video-progress-bar">
+                                <div class="video-progress-fill"></div>
+                            </div>
+                            <div class="inner-swiper-cta swiper"
+                                style="position: absolute; bottom: 20px; left: 10px; right: 10px; width: calc(100% - 20px); height: 140px;">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-1.jpg" alt="product-cta-img-1" />
+                                            Dazzling Brilliance Diamond Bangle
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-2.jpg" alt="">
+                                            Everlasting Shine Diamond Finger Ring
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-3.jpg" alt="">
+                                            Midnight Spark Necklace
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Pagination here -->
+                                <div class="swiper-pagination"></div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <!-- Video Top Overlay -->
+                            <div class="video-overlay-top">
+                                <div class="video-description">Diamonds are all you need to shine ✨</div>
+                                <div class="video-controls">
+                                    <button class="btn-volume muted" aria-label="Toggle Mute"></button>
+                                    <button class="btn-fullscreen" aria-label="Toggle Fullscreen"></button>
+                                </div>
+                            </div>
+                            <video src="asstes/images/videos/video_3.mp4" autoplay muted playsinline></video>
+                            <div class="video-progress-bar">
+                                <div class="video-progress-fill"></div>
+                            </div>
+                            <div class="inner-swiper-cta swiper"
+                                style="position: absolute; bottom: 20px; left: 10px; right: 10px; width: calc(100% - 20px); height: 140px;">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-1.jpg" alt="product-cta-img-1" />
+                                            Dazzling Brilliance Diamond Bangle
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-2.jpg" alt="">
+                                            Everlasting Shine Diamond Finger Ring
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-3.jpg" alt="">
+                                            Midnight Spark Necklace
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Pagination here -->
+                                <div class="swiper-pagination"></div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <!-- Video Top Overlay -->
+                            <div class="video-overlay-top">
+                                <div class="video-description">Diamonds are all you need to shine ✨</div>
+                                <div class="video-controls">
+                                    <button class="btn-volume muted" aria-label="Toggle Mute"></button>
+                                    <button class="btn-fullscreen" aria-label="Toggle Fullscreen"></button>
+                                </div>
+                            </div>
+                            <video src="asstes/images/videos/video_4.mp4" autoplay muted playsinline></video>
+                            <div class="video-progress-bar">
+                                <div class="video-progress-fill"></div>
+                            </div>
+                            <div class="inner-swiper-cta swiper"
+                                style="position: absolute; bottom: 20px; left: 10px; right: 10px; width: calc(100% - 20px); height: 140px;">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-1.jpg" alt="product-cta-img-1" />
+                                            Dazzling Brilliance Diamond Bangle
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-2.jpg" alt="">
+                                            Everlasting Shine Diamond Finger Ring
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-3.jpg" alt="">
+                                            Midnight Spark Necklace
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Pagination here -->
+                                <div class="swiper-pagination"></div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <!-- Video Top Overlay -->
+                            <div class="video-overlay-top">
+                                <div class="video-description">Diamonds are all you need to shine ✨</div>
+                                <div class="video-controls">
+                                    <button class="btn-volume muted" aria-label="Toggle Mute"></button>
+                                    <button class="btn-fullscreen" aria-label="Toggle Fullscreen"></button>
+                                </div>
+                            </div>
+                            <video src="asstes/images/videos/video_5.mp4" autoplay muted playsinline></video>
+                            <div class="video-progress-bar">
+                                <div class="video-progress-fill"></div>
+                            </div>
+                            <!-- Inner Vertical Swiper for Product CTA -->
+                            <div class="inner-swiper-cta swiper"
+                                style="position: absolute; bottom: 20px; left: 10px; right: 10px; width: calc(100% - 20px); height: 140px;">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-1.jpg" alt="product-cta-img-1" />
+                                            Dazzling Brilliance Diamond Bangle
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-2.jpg" alt="">
+                                            Everlasting Shine Diamond Finger Ring
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-3.jpg" alt="">
+                                            Midnight Spark Necklace
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Pagination here -->
+                                <div class="swiper-pagination"></div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <!-- Video Top Overlay -->
+                            <div class="video-overlay-top">
+                                <div class="video-description">Diamonds are all you need to shine ✨</div>
+                                <div class="video-controls">
+                                    <button class="btn-volume muted" aria-label="Toggle Mute"></button>
+                                    <button class="btn-fullscreen" aria-label="Toggle Fullscreen"></button>
+                                </div>
+                            </div>
+                            <video src="asstes/images/videos/video_1.mp4" autoplay muted playsinline></video>
+                            <div class="video-progress-bar">
+                                <div class="video-progress-fill"></div>
+                            </div>
+                            <div class="inner-swiper-cta swiper"
+                                style="position: absolute; bottom: 20px; left: 10px; right: 10px; width: calc(100% - 20px); height: 140px;">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-1.jpg" alt="product-cta-img-1" />
+                                            Dazzling Brilliance Diamond Bangle
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-2.jpg" alt="">
+                                            Everlasting Shine Diamond Finger Ring
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-3.jpg" alt="">
+                                            Midnight Spark Necklace
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Pagination here -->
+                                <div class="swiper-pagination"></div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <!-- Video Top Overlay -->
+                            <div class="video-overlay-top">
+                                <div class="video-description">Diamonds are all you need to shine ✨</div>
+                                <div class="video-controls">
+                                    <button class="btn-volume muted" aria-label="Toggle Mute"></button>
+                                    <button class="btn-fullscreen" aria-label="Toggle Fullscreen"></button>
+                                </div>
+                            </div>
+                            <video src="asstes/images/videos/video_2.mp4" autoplay muted playsinline></video>
+                            <div class="video-progress-bar">
+                                <div class="video-progress-fill"></div>
+                            </div>
+                            <div class="inner-swiper-cta swiper"
+                                style="position: absolute; bottom: 20px; left: 10px; right: 10px; width: calc(100% - 20px); height: 140px;">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-1.jpg" alt="product-cta-img-1" />
+                                            Dazzling Brilliance Diamond Bangle
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-2.jpg" alt="">
+                                            Everlasting Shine Diamond Finger Ring
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-3.jpg" alt="">
+                                            Midnight Spark Necklace
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Pagination here -->
+                                <div class="swiper-pagination"></div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <!-- Video Top Overlay -->
+                            <div class="video-overlay-top">
+                                <div class="video-description">Diamonds are all you need to shine ✨</div>
+                                <div class="video-controls">
+                                    <button class="btn-volume muted" aria-label="Toggle Mute"></button>
+                                    <button class="btn-fullscreen" aria-label="Toggle Fullscreen"></button>
+                                </div>
+                            </div>
+                            <video src="asstes/images/videos/video_3.mp4" autoplay muted playsinline></video>
+                            <div class="video-progress-bar">
+                                <div class="video-progress-fill"></div>
+                            </div>
+                            <div class="inner-swiper-cta swiper"
+                                style="position: absolute; bottom: 20px; left: 10px; right: 10px; width: calc(100% - 20px); height: 140px;">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-1.jpg" alt="product-cta-img-1" />
+                                            Dazzling Brilliance Diamond Bangle
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-2.jpg" alt="">
+                                            Everlasting Shine Diamond Finger Ring
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-3.jpg" alt="">
+                                            Midnight Spark Necklace
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Pagination here -->
+                                <div class="swiper-pagination"></div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <!-- Video Top Overlay -->
+                            <div class="video-overlay-top">
+                                <div class="video-description">Diamonds are all you need to shine ✨</div>
+                                <div class="video-controls">
+                                    <button class="btn-volume muted" aria-label="Toggle Mute"></button>
+                                    <button class="btn-fullscreen" aria-label="Toggle Fullscreen"></button>
+                                </div>
+                            </div>
+                            <video src="asstes/images/videos/video_4.mp4" autoplay muted playsinline></video>
+                            <div class="video-progress-bar">
+                                <div class="video-progress-fill"></div>
+                            </div>
+                            <div class="inner-swiper-cta swiper"
+                                style="position: absolute; bottom: 20px; left: 10px; right: 10px; width: calc(100% - 20px); height: 140px;">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-1.jpg" alt="product-cta-img-1" />
+                                            Dazzling Brilliance Diamond Bangle
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-2.jpg" alt="">
+                                            Everlasting Shine Diamond Finger Ring
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-3.jpg" alt="">
+                                            Midnight Spark Necklace
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Pagination here -->
+                                <div class="swiper-pagination"></div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <!-- Video Top Overlay -->
+                            <div class="video-overlay-top">
+                                <div class="video-description">Diamonds are all you need to shine ✨</div>
+                                <div class="video-controls">
+                                    <button class="btn-volume muted" aria-label="Toggle Mute"></button>
+                                    <button class="btn-fullscreen" aria-label="Toggle Fullscreen"></button>
+                                </div>
+                            </div>
+                            <video src="asstes/images/videos/video_5.mp4" autoplay muted playsinline></video>
+                            <div class="video-progress-bar">
+                                <div class="video-progress-fill"></div>
+                            </div>
+                            <div class="inner-swiper-cta swiper"
+                                style="position: absolute; bottom: 20px; left: 10px; right: 10px; width: calc(100% - 20px); height: 140px;">
+                                <div class="swiper-wrapper">
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-1.jpg" alt="product-cta-img-1" />
+                                            Dazzling Brilliance Diamond Bangle
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-2.jpg" alt="">
+                                            Everlasting Shine Diamond Finger Ring
+                                        </div>
+                                    </div>
+                                    <div class="swiper-slide product-cta">
+                                        <div class="d-flex align-items-center">
+                                            <img src="asstes/images/ec-product-3.jpg" alt="">
+                                            Midnight Spark Necklace
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Pagination here -->
+                                <div class="swiper-pagination"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Navigation -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+<script>
+    let progressInterval = null;
+    let isMuted = true;
+
+    const swiper = new Swiper(".mySwiper", {
+        slidesPerView: 3,
+        centeredSlides: true,
+        spaceBetween: 20,
+        loop: true,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        breakpoints: {
+            0: {
+                slidesPerView: 1,
+                centeredSlides: false,
+                spaceBetween: 10,
+                effect: "slide",
+            },
+            640: {
+                slidesPerView: 1,
+                spaceBetween: 0,
+                coverflowEffect: false
+            },
+            768: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+                coverflowEffect: {
+                    rotate: 0,
+                    stretch: 15,
+                    depth: 120,
+                    modifier: 1.5,
+                    slideShadows: false
+                }
+            },
+            1024: {
+                slidesPerView: 2.5,
+                spaceBetween: 10,
+                coverflowEffect: {
+                    rotate: 0,
+                    stretch: 20,
+                    depth: 120,
+                    modifier: 2,
+                    slideShadows: false
+                }
+            },
+            1280: {
+                slidesPerView: 3,
+                spaceBetween: 20,
+                coverflowEffect: {
+                    rotate: 0,
+                    stretch: 44,
+                    depth: 120,
+                    modifier: 2,
+                    slideShadows: false
+                }
+            }
+        },
+        grabCursor: false,
+        allowTouchMove: false,
+        effect: "coverflow",
+        coverflowEffect: {
+            rotate: 0,
+            stretch: 44,
+            depth: 120,
+            modifier: 2,
+            slideShadows: false,
+        },
+        on: {
+            init: function () {
+                activateSlide(this);
+            },
+            slideChangeTransitionEnd: function () {
+                activateSlide(this);
+            },
+        },
+    });
+
+    document.querySelectorAll('.inner-swiper-cta').forEach((el) => {
+        new Swiper(el, {
+            direction: 'horizontal',
+            slidesPerView: 1.5,
+            loop: true,
+            spaceBetween: 10,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            pagination: {
+                el: el.querySelector('.swiper-pagination'),
+                clickable: true,
+            },
+        });
+    });
+
+    function activateSlide(swiper) {
+        swiper.slides.forEach((slide) => {
+            const video = slide.querySelector('video');
+            const fill = slide.querySelector('.video-progress-fill');
+            const bar = slide.querySelector('.video-progress-bar');
+            const innerSwiper = slide.querySelector('.inner-swiper-cta');
+
+            // Pause all videos
+            if (video) {
+                video.pause();
+                video.loop = false; // disable loop
+                video.currentTime = 0;
+                video.onended = null; // clear any previous event listener
+            }
+
+            // Hide progress and inner swiper
+            if (fill) fill.style.width = '0%';
+            if (bar) bar.style.display = 'none';
+            if (innerSwiper) innerSwiper.style.display = 'none';
+        });
+
+        // Active slide elements
+        const activeSlide = swiper.slides[swiper.activeIndex];
+        const video = activeSlide.querySelector('video');
+        const fill = activeSlide.querySelector('.video-progress-fill');
+        const bar = activeSlide.querySelector('.video-progress-bar');
+        const innerSwiper = activeSlide.querySelector('.inner-swiper-cta');
+
+        if (video && fill && bar) {
+            bar.style.display = 'block';
+            if (innerSwiper) innerSwiper.style.display = 'block';
+
+            video.loop = false;
+            video.muted = isMuted; // apply global state
+            video.play();
+
+            const volumeBtn = activeSlide.querySelector('.btn-volume');
+            if (volumeBtn) {
+                volumeBtn.classList.toggle('muted', isMuted); // update icon
+            }
+
+
+            clearInterval(progressInterval);
+
+            progressInterval = setInterval(() => {
+                if (!video.paused && video.duration) {
+                    const percent = (video.currentTime / video.duration) * 100;
+                    fill.style.width = `${percent}%`;
+                }
+            }, 100);
+
+            video.onended = () => {
+                console.log("Video ended — going to next slide");
+                clearInterval(progressInterval);
+                swiper.slideNext();
+            };
+        }
+    }
+
+    document.querySelectorAll('.swiper-slide').forEach(slide => {
+        const video = slide.querySelector('video');
+        const volumeBtn = slide.querySelector('.btn-volume');
+        const fullscreenBtn = slide.querySelector('.btn-fullscreen');
+
+        if (volumeBtn && video) {
+            volumeBtn.addEventListener('click', () => {
+                isMuted = !isMuted; // toggle global state
+                video.muted = isMuted;
+                volumeBtn.classList.toggle('muted', isMuted);
+            });
+        }
+
+        if (fullscreenBtn && video) {
+            fullscreenBtn.addEventListener('click', () => {
+                if (video.requestFullscreen) {
+                    video.requestFullscreen();
+                } else if (video.webkitRequestFullscreen) {
+                    video.webkitRequestFullscreen();
+                } else if (video.msRequestFullscreen) {
+                    video.msRequestFullscreen();
+                }
+            });
+        }
+    });
+</script>
+</body>
